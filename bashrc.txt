@@ -1,0 +1,4 @@
+# add to the end of .bashrc and change the keys to reflect the IAM credentials 
+export AWS_ACCESS_KEY_ID='AxxxxxxxxxxxxxxxxQ'
+export AWS_SECRET_ACCESS_KEY='ZxxxxxxxxxxxxxxxxxxxxxS'
+export AWS_REGION=ap-southeast-2
