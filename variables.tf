@@ -33,6 +33,12 @@ variable "ws_size" {
 }
 variable "r53zone" {
 }
+variable "SICKey" {
+}
+variable "AllowUploadDownload" {
+}
+variable "pwd_hash" {
+}
 
 variable "aws_region" {
   description = "AWS region to launch servers."
@@ -51,7 +57,7 @@ data "aws_ami" "chkp_ami" {
   most_recent      = true
   filter {
     name   = "name"
-    values = ["Check Point vSEC BYOL R80.10-*"]
+    values = ["Check Point CloudGuard IaaS GW BYOL R80.10-*"]
   }
   owners = ["679593333241"]
 }

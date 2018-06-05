@@ -119,7 +119,7 @@ resource "aws_launch_configuration" "sgw_conf" {
 resource "aws_launch_configuration" "web_conf" {
   name          = "web_config"
   image_id      = "${data.aws_ami.ubuntu_ami.id}"
-  instance_type = "${var.cg_size}"
+  instance_type = "${var.ws_size}"
   key_name      = "${aws_key_pair.auth.id}"
   security_groups = ["${aws_security_group.permissive.id}"]
   user_data     = "${var.ubuntu_user_data}"
@@ -150,7 +150,7 @@ resource "aws_autoscaling_group" "sgw_asg" {
   name = "vsec-layer-autoscale"
   launch_configuration = "${aws_launch_configuration.sgw_conf.id}"
   max_size = 4
-  min_size = 2
+  min_size = 1
   load_balancers = ["${aws_elb.sgw.id}"]
   vpc_zone_identifier = ["${aws_subnet.external1.id}","${aws_subnet.external2.id}"]
   tag {

@@ -12,12 +12,18 @@ cg_size = "c4.large"
 ws_size = "t2.micro"
 r53zone = "mycloudguard.net."
 externaldnshost = "siac-demo"
+SICKey = "vpn12345"
+AllowUploadDownload = "true"
+pwd_hash = "$1$8SfURQQf$dXRtRJQX8cFPg25NTqv9T0"
 
 my_user_data = <<-EOF
                 #!/bin/bash
                 clish -c 'set user admin shell /bin/bash' -s
-                config_system -s 'install_security_gw=true&install_ppak=true&gateway_cluster_member=false&install_security_managment=false&ftw_sic_key=vpn12345';shutdown -r now;
+                blink_config -s 'gateway_cluster_member=false&ftw_sic_key=vpn12345&upload_info=true&download_info=true&admin_hash="$1$8SfURQQf$dXRtRJQX8cFPg25NTqv9T0"'		
+                addr="$(ip addr show dev eth0 | awk "/inet/{print \$2; exit}" | cut -d / -f 1)"
+                dynamic_objects -n LocalGateway -r "$addr" "$addr" -a
                 EOF
+
 ubuntu_user_data = <<-EOF
                     #!/bin/bash
                     until sudo apt-get update && sudo apt-get -y install apache2;do
