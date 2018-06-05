@@ -150,7 +150,7 @@ resource "aws_autoscaling_group" "sgw_asg" {
   name = "vsec-layer-autoscale"
   launch_configuration = "${aws_launch_configuration.sgw_conf.id}"
   max_size = 4
-  min_size = 1
+  min_size = 2
   load_balancers = ["${aws_elb.sgw.id}"]
   vpc_zone_identifier = ["${aws_subnet.external1.id}","${aws_subnet.external2.id}"]
   tag {
