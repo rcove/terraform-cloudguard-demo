@@ -27,6 +27,10 @@ variable "ubuntu_user_data" {
 }
 variable "externaldnshost" {
 }
+variable "cg_size" {
+}
+variable "ws_size" {
+}
 variable "r53zone" {
 }
 
@@ -51,11 +55,7 @@ data "aws_ami" "chkp_ami" {
   }
   owners = ["679593333241"]
 }
-variable "aws_amis_vsec" {
-  default = {
-    ap-southeast-2 = "${data.aws_ami.chkp_ami.id}"
-  }
-}
+
 # Ubuntu Image
 data "aws_ami" "ubuntu_ami" {
   most_recent      = true
@@ -64,12 +64,6 @@ data "aws_ami" "ubuntu_ami" {
     values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"]
   }
 }
-variable "aws_amis_web" {
-  default = {
-    ap-southeast-2 = "${data.aws_ami.ubuntu_ami.id}"
-  }
-}
-
 
 
 

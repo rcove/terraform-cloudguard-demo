@@ -107,10 +107,9 @@ resource "aws_security_group" "permissive" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
 resource "aws_launch_configuration" "sgw_conf" {
   name          = "sgw_config"
-  image_id      = "${lookup(var.aws_amis_vsec, var.aws_region)}"
+  image_id      = "${data.aws_ami.chkp_ami.id}"
   instance_type = "${var.cg_size}" 
   key_name      = "${aws_key_pair.auth.id}"
   security_groups = ["${aws_security_group.permissive.id}"]
@@ -119,7 +118,7 @@ resource "aws_launch_configuration" "sgw_conf" {
 }
 resource "aws_launch_configuration" "web_conf" {
   name          = "web_config"
-  image_id      = "${lookup(var.aws_amis_web, var.aws_region)}"
+  image_id      = "${data.aws_ami.ubuntu_ami.id}"
   instance_type = "${var.cg_size}"
   key_name      = "${aws_key_pair.auth.id}"
   security_groups = ["${aws_security_group.permissive.id}"]
